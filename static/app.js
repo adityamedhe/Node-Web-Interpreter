@@ -1,8 +1,11 @@
-$("#inp_term").terminal(function(command, term){
-    term.echo('Hi')
-}, {
-    "greetings" : "Node REPL by Aditya",
-    "prompt" : "Node>",
-    "height" : "300",
-    "name" : "js_demo"
+var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/monokai");
+    editor.getSession().setMode("ace/mode/python");
+    
+$("#run-but").on('click', function(e) {
+    var code = encodeURI(editor.getValue());
+    
+    $.post('/run', {'code': code}, function(data) {
+        $("#opwindow pre").text(data);
+    })
 })
