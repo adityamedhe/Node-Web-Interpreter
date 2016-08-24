@@ -28,17 +28,16 @@ function runCode(code, response) {
     var py = spawn('python', ['-c', code]);
     py.stdout.on('data', function(data) {
         py.kill('SIGTERM');
-        response.write((data))
-        response.end();
-        py.stdout.removeAllListeners();
-        py.stderr.removeAllListeners('data');
+        response.write(data)
     })
     
     py.stderr.on('data', function(data) {
         py.kill('SIGTERM');
         response.write(data);
+    })
+    
+    py.on('exit', function(code, signal) {
+        response.write('<Your process has ended. Click Run if you want to execute again>');
         response.end();
-        py.stdout.removeAllListeners();
-        py.stderr.removeAllListeners('data');
     })
 }
