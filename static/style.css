@@ -27,6 +27,7 @@ div.progress {
     height: 600px;
     font-family: monospace;
     padding: 5px;
+    overflow-y:scroll;
 }
 
 #editor, #opwindow {
